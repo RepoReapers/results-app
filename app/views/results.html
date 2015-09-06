@@ -1,0 +1,97 @@
+<div class="container-fluid">
+  <h1>Results</h1>
+  <hr>
+  <p class="lead">
+    Below are the results of executing <code>reaper</code> against the set of
+    repositories as specified in the paper.
+  </p>
+  <style>
+  table.floatThead-table {
+    border-top: none;
+    border-bottom: none;
+    background-color: #FFF;
+  }
+  </style>
+  <div class="alert alert-info" role="alert">
+    <code>reaper</code> has reaped {{totalEspResults | number:0}} engineered
+    software projects out of {{totalResults | number:0}} repositories thus
+    far.
+  </div>
+  <div ng-show="error" class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Error:</strong> {{errorMessage}}
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading text-center">
+      <dir-pagination-controls auto-hide="false" max-size="20" pagination-id="results">
+      </dir-pagination-controls>
+    </div>
+    <div cg-busy="{promise: fetchPromise}" class="table-responsive"
+      style="min-height: 20vh;">
+      <table class="table table-striped" id="resultsTable">
+        <thead>
+          <tr>
+            <th ng-repeat="heading in headings">{{heading}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr dir-paginate="result in results | itemsPerPage: resultsPerPage"
+            total-items="totalResults" current-page="pagination.current" pagination-id="results">
+            <td>
+              <!-- Repository -->
+              <a target="_blank" href="https://github.com/{{result[0]}}">
+                {{result[0]}}
+              </a>
+            </td>
+            <td>
+              <!-- Language -->
+              <span>{{result[1]}}</span>
+            </td>
+            <td>
+              <!-- Score -->
+              <span>{{result[2]}}</span>
+            </td>
+            <td>
+              <!-- Architecture -->
+              <span>{{result[3]}}</span>
+            </td>
+            <td>
+              <!-- CI -->
+              <span>{{result[4]}}</span>
+            </td>
+            <td>
+              <!-- -->
+              <span>{{result[5]}}</span>
+            </td>
+            <td>
+              <!-- Documentation -->
+              <span>{{result[6]}}</span>
+            </td>
+            <td>
+              <!-- History -->
+              <span>{{result[7]}}</span>
+            </td>
+            <td>
+              <!-- License -->
+              <span>{{result[8]}}</span>
+            </td>
+            <td>
+              <!-- State -->
+              <span>{{result[9]}}</span>
+            </td>
+            <td>
+              <!-- Processed -->
+              <span>{{result[10]}}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-footer text-center">
+      <dir-pagination-controls auto-hide="false" max-size="20" pagination-id="results">
+      </dir-pagination-controls>
+    </div>
+  </div>
+</div>
